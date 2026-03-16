@@ -1,9 +1,10 @@
 #This script will pull your Microsoft Learning Transcript. 
 # you will need to use your share link from MS learn.
-$transcriptID = "https://learn.microsoft.com/en-us/users/jayarloiselle-1091/transcript/dz309sy0lzqn1qk"
+$TranscriptLink = "https://learn.microsoft.com/en-us/users/jayarloiselle-1091/transcript/dz309sy0lzqn1qk"
+#This will open the transcript in your default web browser.
+Start-Process $TranscriptLink
 
-$apiUrl = "https://learn.microsoft.com/api/public/transcripts/dz309sy0lzqn1qk"
+#Save the results as a CSV file. You can specify the path and filename as needed.
 
-$response = Invoke-RestMethod -Uri $apiUrl
-
-Write-Output $response 
+$TranscriptData = Invoke-WebRequest -Uri $TranscriptLink -UseBasicParsing | Select-Object -ExpandProperty Content
+Get-Content .\transcriptReview.csv
